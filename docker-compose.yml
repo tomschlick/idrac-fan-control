@@ -1,0 +1,12 @@
+version: '3'
+services:
+  idrac-fan-control:
+    image: idrac-fan-control:latest
+    container_name: idrac-fan-control
+    environment:
+      - IPMIHOST=${IPMIHOST}
+      - IPMIUSER=${IPMIUSER}
+      - IPMIPW=${IPMIPW}
+      - SLEEP=${SLEEP}
+    restart: always
+    
