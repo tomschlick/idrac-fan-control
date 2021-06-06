@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App;
 
+use Illuminate\Support\Facades\Log;
+
 class IPMI
 {
     protected string $ipmi_host;
@@ -37,5 +39,28 @@ class IPMI
     public function getFanSpeeds(): string
     {
         return $this->executeCommand("sdr type fan");
+    }
+
+    public function setFanModeAutomatic(): void
+    {
+        $this->executeCommand("raw 0x30 0x30 0x01 0x01");
+        Log::info("Set fan speeds mode to AUTOMATIC");
+    }
+
+    public function setFanModeManual(): void
+    {
+        $this->executeCommand("raw 0x30 0x30 0x01 0x00");
+    }
+
+    public function setFanSpeedWithPercentage(int $percentage): void
+    {
+        $hex = str_pad(dechex($percentage), 2, "0", STR_PAD_LEFT);
+
+        $this->setFanSpeedWithHex($hex);
+    }
+
+    public function setFanSpeedWithHex(string $hex): void
+    {
+        $this->executeCommand("raw 0x30 0x30 0x02 0xff 0x$hex");
     }
 }

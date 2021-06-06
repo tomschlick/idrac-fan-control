@@ -44,9 +44,9 @@ class AutoControlFansCommand extends Command
 
 
 //             $output = $ipmi->getTemperatures();
-             $output = $ipmi->getFanSpeeds();
-
-//            $output = shell_exec("ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW sdr type temperature |grep -E ^$SENSOR |grep degrees |grep -Po '\d{2}' | tail -1");
+             $output = $ipmi->setFanModeAutomatic();
+//             $ipmi->setFanModeManual();
+//             $output = $ipmi->setFanSpeedWithPercentage(80);
 
             var_dump($output);
 
