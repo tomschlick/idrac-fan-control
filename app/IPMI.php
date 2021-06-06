@@ -54,9 +54,12 @@ class IPMI
 
     public function setFanSpeedWithPercentage(int $percentage): void
     {
-        $hex = str_pad(dechex($percentage), 2, "0", STR_PAD_LEFT);
+        $this->setFanSpeedWithHex($this->generateHexFromPercentage($percentage));
+    }
 
-        $this->setFanSpeedWithHex($hex);
+    public function generateHexFromPercentage(int $percentage): string
+    {
+        return str_pad(dechex($percentage), 2, "0", STR_PAD_LEFT);
     }
 
     public function setFanSpeedWithHex(string $hex): void
